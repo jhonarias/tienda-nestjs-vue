@@ -3,16 +3,17 @@ import { PrismaService } from '../prisma.service'
 import type { IInvoiceRepository, CreateInvoiceData } from '../../../core/domain/ports/invoice-repository.port'
 import type { Invoice, InvoiceStatus } from '../../../core/domain/entities/invoice.entity'
 
-function toInvoice(inv: Record<string, unknown>): Invoice {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function toInvoice(inv: any): Invoice {
   return {
     ...inv,
-    total: (inv.total as { toNumber(): number }).toNumber(),
-    items: ((inv.items ?? []) as Array<Record<string, unknown>>).map((item) => ({
+    total: Number(inv.total),
+    items: (inv.items ?? []).map((item: any) => ({
       ...item,
-      unitPrice: (item.unitPrice as { toNumber(): number }).toNumber(),
-      subtotal: (item.subtotal as { toNumber(): number }).toNumber(),
+      unitPrice: Number(item.unitPrice),
+      subtotal: Number(item.subtotal),
     })),
-  } as unknown as Invoice
+  } as Invoice
 }
 
 @Injectable()

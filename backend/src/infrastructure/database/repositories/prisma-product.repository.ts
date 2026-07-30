@@ -3,8 +3,9 @@ import { PrismaService } from '../prisma.service'
 import type { IProductRepository, CreateProductData, UpdateProductData } from '../../../core/domain/ports/product-repository.port'
 import type { Product } from '../../../core/domain/entities/product.entity'
 
-function toProduct(p: Record<string, unknown>): Product {
-  return { ...p, unitPrice: (p.unitPrice as { toNumber(): number }).toNumber() } as unknown as Product
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function toProduct(p: any): Product {
+  return { ...p, unitPrice: Number(p.unitPrice) } as Product
 }
 
 @Injectable()

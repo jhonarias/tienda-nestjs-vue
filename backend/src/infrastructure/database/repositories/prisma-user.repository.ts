@@ -14,7 +14,11 @@ export class PrismaUserRepository implements IUserRepository {
 
   async findAll(): Promise<UserPublic[]> {
     const users = await this.prisma.user.findMany({ orderBy: { createdAt: 'desc' } })
-    return users.map(({ password: _pwd, ...u }) => u as UserPublic)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return users.map((user: any) => {
+      const { password: _pwd, ...u } = user
+      return u as UserPublic
+    })
   }
 
   async findById(id: string): Promise<User | null> {
