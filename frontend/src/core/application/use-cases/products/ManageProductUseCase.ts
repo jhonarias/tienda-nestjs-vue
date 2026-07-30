@@ -3,8 +3,8 @@
 // Capa: Application
 // ============================================================
 
-import type { IProductService, CreateProductDTO, UpdateProductDTO } from '../../domain/ports/IProductService'
-import type { Product } from '../../domain/entities/Product'
+import type { IProductService, CreateProductDTO, UpdateProductDTO } from '../../../domain/ports/IProductService'
+import type { Product } from '../../../domain/entities/Product'
 
 export class CreateProductUseCase {
   constructor(private readonly productService: IProductService) {}

@@ -3,7 +3,7 @@
 // Capa: Domain → Ports
 // ============================================================
 
-import type { Invoice, InvoiceItem } from '../entities/Invoice'
+import type { Invoice } from '../entities/Invoice'
 
 export interface CreateInvoiceDTO {
   items: Array<{

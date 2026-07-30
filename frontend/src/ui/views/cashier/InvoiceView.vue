@@ -168,8 +168,3 @@ const formatCurrency = (value: number) =>
     </div>
   </div>
 </template>
-  <div>
-    <h2 class="text-2xl font-bold text-gray-900 mb-6">Nueva Factura</h2>
-    <p class="text-gray-500">Próximamente: búsqueda de productos y generación de facturas.</p>
-  </div>
-</template>

@@ -3,8 +3,8 @@
 // Capa: Application
 // ============================================================
 
-import type { IUserService, CreateUserDTO, UpdateUserDTO } from '../../domain/ports/IUserService'
-import type { User } from '../../domain/entities/User'
+import type { IUserService, CreateUserDTO } from '../../../domain/ports/IUserService'
+import type { User } from '../../../domain/entities/User'
 
 export class GetUsersUseCase {
   constructor(private readonly userService: IUserService) {}

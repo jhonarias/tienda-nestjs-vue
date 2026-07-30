@@ -4,8 +4,8 @@
 // Descripción: Crea una factura validando que existan ítems
 // ============================================================
 
-import type { IInvoiceService, CreateInvoiceDTO } from '../../domain/ports/IInvoiceService'
-import type { Invoice } from '../../domain/entities/Invoice'
+import type { IInvoiceService, CreateInvoiceDTO } from '../../../domain/ports/IInvoiceService'
+import type { Invoice } from '../../../domain/entities/Invoice'
 
 export class CreateInvoiceUseCase {
   constructor(private readonly invoiceService: IInvoiceService) {}

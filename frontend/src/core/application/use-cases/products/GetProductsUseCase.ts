@@ -6,8 +6,8 @@
 //              No sabe nada de Axios ni del backend, solo del puerto.
 // ============================================================
 
-import type { IProductService } from '../../domain/ports/IProductService'
-import type { Product } from '../../domain/entities/Product'
+import type { IProductService } from '../../../domain/ports/IProductService'
+import type { Product } from '../../../domain/entities/Product'
 
 export class GetProductsUseCase {
   constructor(private readonly productService: IProductService) {}
