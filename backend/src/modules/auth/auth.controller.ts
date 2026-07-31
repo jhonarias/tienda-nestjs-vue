@@ -15,6 +15,15 @@ export class AuthController {
     return this.loginUseCase.execute(dto.username, dto.password)
   }
 
+  @Post('logout')
+  @UseGuards(JwtAuthGuard)
+  @HttpCode(HttpStatus.OK)
+  logout() {
+    // JWT es stateless: el cliente descarta el token.
+    // El endpoint existe para que el frontend pueda hacer la llamada limpiamente.
+    return { message: 'Sesión cerrada correctamente' }
+  }
+
   @Get('me')
   @UseGuards(JwtAuthGuard)
   me(@CurrentUser() user: JwtPayload) {
