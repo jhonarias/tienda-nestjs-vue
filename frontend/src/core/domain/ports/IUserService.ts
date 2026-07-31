@@ -21,6 +21,7 @@ export interface UpdateUserDTO {
   email?: string
   phone?: string
   role?: 'ADMIN' | 'CASHIER'
+  isActive?: boolean
 }
 
 export interface IUserService {

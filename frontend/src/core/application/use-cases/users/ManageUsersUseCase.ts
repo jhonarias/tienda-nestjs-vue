@@ -1,9 +1,4 @@
-// ============================================================
-// CASO DE USO: ManageUsersUseCase
-// Capa: Application
-// ============================================================
-
-import type { IUserService, CreateUserDTO } from '../../../domain/ports/IUserService'
+import type { IUserService, CreateUserDTO, UpdateUserDTO } from '../../../domain/ports/IUserService'
 import type { User } from '../../../domain/entities/User'
 
 export class GetUsersUseCase {
@@ -19,6 +14,14 @@ export class CreateUserUseCase {
 
   async execute(data: CreateUserDTO): Promise<User> {
     return this.userService.create(data)
+  }
+}
+
+export class UpdateUserUseCase {
+  constructor(private readonly userService: IUserService) {}
+
+  async execute(id: string, data: UpdateUserDTO): Promise<User> {
+    return this.userService.update(id, data)
   }
 }
 
