@@ -3,7 +3,7 @@
 // ============================================================
 
 import { Injectable } from '@nestjs/common'
-import { PrismaService } from '../../../infrastructure/database/prisma.service'
+import { PrismaService } from '../../../../infrastructure/database/prisma.service'
 
 export interface DashboardStats {
   totalProducts: number
