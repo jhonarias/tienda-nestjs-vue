@@ -10,15 +10,16 @@ import { AuthModule } from './modules/auth/auth.module'
 import { UsersModule } from './modules/users/users.module'
 import { ProductsModule } from './modules/products/products.module'
 import { InvoicesModule } from './modules/invoices/invoices.module'
+import { StatsModule } from './modules/stats/stats.module'
 
 @Module({
   imports: [
-    // ConfigModule disponible globalmente → process.env accesible en toda la app
     ConfigModule.forRoot({ isGlobal: true }),
     AuthModule,
     UsersModule,
     ProductsModule,
     InvoicesModule,
+    StatsModule,
   ],
 })
 export class AppModule {}
