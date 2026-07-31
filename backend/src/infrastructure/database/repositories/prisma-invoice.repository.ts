@@ -3,15 +3,23 @@ import { PrismaService } from '../prisma.service'
 import type { IInvoiceRepository, CreateInvoiceData } from '../../../core/domain/ports/invoice-repository.port'
 import type { Invoice, InvoiceStatus } from '../../../core/domain/entities/invoice.entity'
 
+// Incluye nombre del producto en cada ítem y username del cajero
+const INVOICE_INCLUDE = {
+  items: { include: { product: { select: { name: true } } } },
+  cashier: { select: { username: true } },
+} as const
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function toInvoice(inv: any): Invoice {
   return {
     ...inv,
     total: Number(inv.total),
+    cashierName: inv.cashier?.username,
     items: (inv.items ?? []).map((item: any) => ({
       ...item,
       unitPrice: Number(item.unitPrice),
       subtotal: Number(item.subtotal),
+      productName: item.product?.name ?? 'Producto eliminado',
     })),
   } as Invoice
 }
@@ -23,18 +31,18 @@ export class PrismaInvoiceRepository implements IInvoiceRepository {
   async findAll(cashierId?: string): Promise<Invoice[]> {
     const invoices = await this.prisma.invoice.findMany({
       where: cashierId ? { cashierId } : undefined,
-      include: { items: true },
+      include: INVOICE_INCLUDE,
       orderBy: { createdAt: 'desc' },
     })
-    return invoices.map((inv) => toInvoice(inv as unknown as Record<string, unknown>))
+    return invoices.map(toInvoice)
   }
 
   async findById(id: string): Promise<Invoice | null> {
     const inv = await this.prisma.invoice.findUnique({
       where: { id },
-      include: { items: true },
+      include: INVOICE_INCLUDE,
     })
-    return inv ? toInvoice(inv as unknown as Record<string, unknown>) : null
+    return inv ? toInvoice(inv) : null
   }
 
   async create(data: CreateInvoiceData): Promise<Invoice> {
@@ -48,17 +56,18 @@ export class PrismaInvoiceRepository implements IInvoiceRepository {
         clientId: data.clientId,
         items: { create: data.items },
       },
-      include: { items: true },
+      include: INVOICE_INCLUDE,
     })
-    return toInvoice(inv as unknown as Record<string, unknown>)
+    return toInvoice(inv)
   }
 
   async updateStatus(id: string, status: InvoiceStatus): Promise<Invoice> {
     const inv = await this.prisma.invoice.update({
       where: { id },
       data: { status },
-      include: { items: true },
+      include: INVOICE_INCLUDE,
     })
-    return toInvoice(inv as unknown as Record<string, unknown>)
+    return toInvoice(inv)
   }
 }
+

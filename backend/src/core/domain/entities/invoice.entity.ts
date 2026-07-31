@@ -6,6 +6,7 @@ export interface InvoiceItem {
   unitPrice: number
   subtotal: number
   productId: string
+  productName: string
   invoiceId: string
   createdAt: Date
 }
@@ -20,6 +21,7 @@ export interface Invoice {
   clientPhone?: string | null
   clientId?: string | null
   cashierId: string
+  cashierName?: string
   items: InvoiceItem[]
   createdAt: Date
   updatedAt: Date
